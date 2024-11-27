@@ -19,10 +19,20 @@ auth:
 set_env:
 		@echo execute eval $(saml2aws script)
 
-# Terraform commands for main terraform directory with .tfvars
-init_main:
-		cd $(TERRAFORM_DIR_MAIN) && terraform init -upgrade
+# Unified init target
+init:
+		@echo "Initializing Terraform directories..."
+		cd $(TERRAFORM_DIR_MAIN) && terraform init -upgrade -var-file=$(TFVARS_FILE)
+		cd $(TERRAFORM_DIR_INFRA) && terraform init -upgrade
 
+# Separate targets for specific directories
+init_main:
+		cd $(TERRAFORM_DIR_MAIN) && terraform init -upgrade -var-file=$(TFVARS_FILE)
+
+init_infra:
+		cd $(TERRAFORM_DIR_INFRA) && terraform init -upgrade
+
+# Terraform commands for main terraform directory
 plan_main:
 		cd $(TERRAFORM_DIR_MAIN) && terraform plan -var-file=$(TFVARS_FILE)
 
@@ -31,6 +41,16 @@ apply_main:
 
 destroy_main:
 		cd $(TERRAFORM_DIR_MAIN) && terraform destroy -var-file=$(TFVARS_FILE) -auto-approve
+
+# Terraform commands for infra directory
+plan_infra:
+		cd $(TERRAFORM_DIR_INFRA) && terraform plan
+
+apply_infra:
+		cd $(TERRAFORM_DIR_INFRA) && terraform apply -auto-approve
+
+destroy_infra:
+		cd $(TERRAFORM_DIR_INFRA) && terraform destroy -auto-approve
 
 # Terraform linting
 tf_lint_with_write:
@@ -41,7 +61,7 @@ tf_lint_without_write:
 		terraform fmt -recursive -diff=true -write=false $(TERRAFORM_DIR_INFRA)
 		terraform fmt -recursive -diff=true -write=false $(TERRAFORM_DIR_MAIN)
 
-# Remove Terraform initialization for both directories
+# Cleanup Terraform initialization
 init_remove_infra:
 		cd $(TERRAFORM_DIR_INFRA) && rm -rf .terraform
 
