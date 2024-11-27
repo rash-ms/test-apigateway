@@ -7,7 +7,9 @@
 
 python_exec=$(shell command -v python3)
 
-TERRAFORM_DIR = ./infra
+# Define Terraform directories
+TERRAFORM_DIR_INFRA = ./infra/data-platform-non-prod/us-east-1/aws-apigateway-s3
+TERRAFORM_DIR_MAIN = ./terraform/aws-apigateway-s3
 
 # Authentication
 auth:
@@ -16,28 +18,47 @@ auth:
 set_env:
 		@echo execute eval $(saml2aws script)
 
-# Terraform commands
-init:
-		cd $(TERRAFORM_DIR) && terraform init -upgrade
+# Terraform commands for infra directory
+init_infra:
+		cd $(TERRAFORM_DIR_INFRA) && terraform init -upgrade
 
-plan:
-		cd $(TERRAFORM_DIR) && terraform plan
+plan_infra:
+		cd $(TERRAFORM_DIR_INFRA) && terraform plan
 
-apply:
-		cd $(TERRAFORM_DIR) && terraform apply -auto-approve
+apply_infra:
+		cd $(TERRAFORM_DIR_INFRA) && terraform apply -auto-approve
 
-destroy:
-		cd $(TERRAFORM_DIR) && terraform destroy -auto-approve
+destroy_infra:
+		cd $(TERRAFORM_DIR_INFRA) && terraform destroy -auto-approve
 
-init_remove:
-		cd $(TERRAFORM_DIR) && rm -rf .terraform
+# Terraform commands for main terraform directory
+init_main:
+		cd $(TERRAFORM_DIR_MAIN) && terraform init -upgrade
+
+plan_main:
+		cd $(TERRAFORM_DIR_MAIN) && terraform plan
+
+apply_main:
+		cd $(TERRAFORM_DIR_MAIN) && terraform apply -auto-approve
+
+destroy_main:
+		cd $(TERRAFORM_DIR_MAIN) && terraform destroy -auto-approve
 
 # Terraform linting
 tf_lint_with_write:
-		terraform fmt -recursive -diff=true -write=true $(TERRAFORM_DIR)
+		terraform fmt -recursive -diff=true -write=true $(TERRAFORM_DIR_INFRA)
+		terraform fmt -recursive -diff=true -write=true $(TERRAFORM_DIR_MAIN)
 
 tf_lint_without_write:
-		terraform fmt -recursive -diff=true -write=false $(TERRAFORM_DIR)
+		terraform fmt -recursive -diff=true -write=false $(TERRAFORM_DIR_INFRA)
+		terraform fmt -recursive -diff=true -write=false $(TERRAFORM_DIR_MAIN)
+
+# Remove Terraform initialization for both directories
+init_remove_infra:
+		cd $(TERRAFORM_DIR_INFRA) && rm -rf .terraform
+
+init_remove_main:
+		cd $(TERRAFORM_DIR_MAIN) && rm -rf .terraform
 
 # Python dependencies installation
 install_python_deps:
