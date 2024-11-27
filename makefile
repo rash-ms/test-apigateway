@@ -1,4 +1,3 @@
-# Define directories and files
 TERRAFORM_ROOT_DIR = ./infra
 RESOURCE_DIR = $(TERRAFORM_ROOT_DIR)/terraform/aws-apigateway-s3
 TFVARS_DIR = $(TERRAFORM_ROOT_DIR)/data-platform-non-prod/us-east-1/aws-apigateway-s3
@@ -8,8 +7,13 @@ BACKEND_FILE = $(TFVARS_DIR)/backend.tfvars
 # Initialize Terraform
 init:
 	@echo "Initializing Terraform in $(RESOURCE_DIR)..."
-	@if [ -f $(BACKEND_FILE) ]; then \
-		cd $(RESOURCE_DIR) && terraform init -backend-config=$(BACKEND_FILE); \
+	@echo "Using backend file: $(BACKEND_FILE)"
+	@if [ -f "$(BACKEND_FILE)" ]; then \
+		if [ -d "$(RESOURCE_DIR)" ]; then \
+			cd $(RESOURCE_DIR) && terraform init -backend-config=$(BACKEND_FILE); \
+		else \
+			echo "Error: Terraform resource directory $(RESOURCE_DIR) not found."; exit 1; \
+		fi; \
 	else \
 		echo "Error: Backend file $(BACKEND_FILE) not found."; exit 1; \
 	fi
