@@ -10,6 +10,7 @@ python_exec=$(shell command -v python3)
 # Define Terraform directories
 TERRAFORM_DIR_INFRA = ./infra/data-platform-non-prod/us-east-1/aws-apigateway-s3
 TERRAFORM_DIR_MAIN = ./terraform/aws-apigateway-s3
+TFVARS_FILE = $(TERRAFORM_DIR_INFRA)/terraform.tfvars
 
 # Authentication
 auth:
@@ -18,31 +19,18 @@ auth:
 set_env:
 		@echo execute eval $(saml2aws script)
 
-# Terraform commands for infra directory
-init_infra:
-		cd $(TERRAFORM_DIR_INFRA) && terraform init -upgrade
-
-plan_infra:
-		cd $(TERRAFORM_DIR_INFRA) && terraform plan
-
-apply_infra:
-		cd $(TERRAFORM_DIR_INFRA) && terraform apply -auto-approve
-
-destroy_infra:
-		cd $(TERRAFORM_DIR_INFRA) && terraform destroy -auto-approve
-
-# Terraform commands for main terraform directory
+# Terraform commands for main terraform directory with .tfvars
 init_main:
 		cd $(TERRAFORM_DIR_MAIN) && terraform init -upgrade
 
 plan_main:
-		cd $(TERRAFORM_DIR_MAIN) && terraform plan
+		cd $(TERRAFORM_DIR_MAIN) && terraform plan -var-file=$(TFVARS_FILE)
 
 apply_main:
-		cd $(TERRAFORM_DIR_MAIN) && terraform apply -auto-approve
+		cd $(TERRAFORM_DIR_MAIN) && terraform apply -var-file=$(TFVARS_FILE) -auto-approve
 
 destroy_main:
-		cd $(TERRAFORM_DIR_MAIN) && terraform destroy -auto-approve
+		cd $(TERRAFORM_DIR_MAIN) && terraform destroy -var-file=$(TFVARS_FILE) -auto-approve
 
 # Terraform linting
 tf_lint_with_write:
