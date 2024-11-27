@@ -54,3 +54,9 @@ tf_lint_with_write:
 tf_lint_without_write:
 	@echo "Linting all Terraform code without write..."
 	terraform fmt -recursive -diff=true -write=false $(TERRAFORM_ROOT_DIR)
+
+# Python dependencies installation
+install_python_deps:
+		@echo "Installing Python dependencies..."
+		python3 -m pip install --upgrade pip
+		python3 -m pip install -r ./scripts/requirements.txt
