@@ -12,10 +12,9 @@ TFVARS_DIR = $(TERRAFORM_ROOT_DIR)/data-platform-non-prod/us-east-1/aws-apigatew
 TFVARS_FILE = $(TFVARS_DIR)/terraform.tfvars
 BACKEND_FILE = $(TFVARS_DIR)/backend.tfvars
 
-# Initialize Terraform
+# Terraform initialization
 init:
 	@echo "Initializing Terraform in $(RESOURCE_DIR)..."
-	@echo "Backend file: $(BACKEND_FILE)"
 	@if [ -f $(BACKEND_FILE) ]; then \
 		if [ -d $(RESOURCE_DIR) ]; then \
 			cd $(RESOURCE_DIR) && terraform init -upgrade -backend-config=$(BACKEND_FILE); \
@@ -26,7 +25,7 @@ init:
 		echo "Error: Backend file $(BACKEND_FILE) not found."; exit 1; \
 	fi
 
-# Target: Plan Terraform deployment
+# Terraform planning
 plan:
 	@echo "Planning Terraform in $(RESOURCE_DIR)..."
 	@if [ -f $(TFVARS_FILE) ]; then \
@@ -39,7 +38,7 @@ plan:
 		echo "Error: Variable file $(TFVARS_FILE) not found."; exit 1; \
 	fi
 
-# Target: Apply Terraform deployment
+# Terraform applying
 apply:
 	@echo "Applying Terraform in $(RESOURCE_DIR)..."
 	@if [ -f $(TFVARS_FILE) ]; then \
@@ -52,7 +51,7 @@ apply:
 		echo "Error: Variable file $(TFVARS_FILE) not found."; exit 1; \
 	fi
 
-# Target: Destroy Terraform deployment
+# Terraform destroying
 destroy:
 	@echo "Destroying Terraform resources in $(RESOURCE_DIR)..."
 	@if [ -f $(TFVARS_FILE) ]; then \
@@ -65,7 +64,7 @@ destroy:
 		echo "Error: Variable file $(TFVARS_FILE) not found."; exit 1; \
 	fi
 
-# Target: Clean up Terraform directories
+# Cleanup Terraform state
 clean:
 	@echo "Cleaning up .terraform directories in $(RESOURCE_DIR)..."
 	@if [ -d $(RESOURCE_DIR) ]; then \
@@ -74,14 +73,11 @@ clean:
 		echo "Error: Terraform resource directory $(RESOURCE_DIR) not found."; exit 1; \
 	fi
 
-# Target: Lint and format Terraform files
-tf_lint_with_write:
-	@echo "Linting all Terraform code (write mode)..."
-	terraform fmt -recursive -diff=true -write=true $(TERRAFORM_ROOT_DIR)
+# Linting Terraform files
+lint:
+	@echo "Linting all Terraform files in $(TERRAFORM_ROOT_DIR)..."
+	terraform fmt -recursive $(TERRAFORM_ROOT_DIR)
 
-tf_lint_without_write:
-	@echo "Linting all Terraform code (dry-run)..."
-	terraform fmt -recursive -diff=true -write=false $(TERRAFORM_ROOT_DIR)
 
 # Target: Install Python dependencies
 install_python_deps:
