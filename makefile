@@ -18,14 +18,14 @@ auth:
 set_env:
 		@echo execute eval $(saml2aws script)
 
-init_backend:
-		cd ${TERRAFORM_DIR}/s3-backend && terraform init -upgrade
+# init_backend:
+# 		cd ${TERRAFORM_DIR}/s3-backend && terraform init -upgrade
 
-plan_backend:
-		cd $(TERRAFORM_DIR)/s3-backend && terraform plan
+# plan_backend:
+# 		cd $(TERRAFORM_DIR)/s3-backend && terraform plan
 
-apply_backend:
-		cd ${TERRAFORM_DIR}/s3-backend && terraform apply
+# apply_backend:
+# 		cd ${TERRAFORM_DIR}/s3-backend && terraform apply
 
 
 init:
@@ -49,12 +49,12 @@ init_remove:
 destroy:
 		cd $(TERRAFORM_DIR) && terraform destroy
 
-# Linting for Terraform
-# tf_lint_with_write:		
-# 		terraform fmt -recursive -diff=true -write=true ./aws-data-infrastructure
+# Linting for Terraform  ./aws-data-infrastructure
+tf_lint_with_write:		
+		terraform fmt -recursive -diff=true -write=true ./infra
 
-# tf_lint_without_write:
-# 		terraform fmt -recursive -diff=true -write=false ./aws-data-infrastructure
+tf_lint_without_write:
+		terraform fmt -recursive -diff=true -write=false ./infra
 
 # Python dependencies installation
 install_python_deps:
