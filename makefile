@@ -12,9 +12,10 @@ TFVARS_DIR = $(TERRAFORM_ROOT_DIR)/data-platform-non-prod/us-east-1/aws-apigatew
 TFVARS_FILE = $(TFVARS_DIR)/terraform.tfvars
 BACKEND_FILE = $(TFVARS_DIR)/backend.tfvars
 
-# Target: Initialize Terraform
+# Initialize Terraform
 init:
 	@echo "Initializing Terraform in $(RESOURCE_DIR)..."
+	@echo "Backend file: $(BACKEND_FILE)"
 	@if [ -f $(BACKEND_FILE) ]; then \
 		if [ -d $(RESOURCE_DIR) ]; then \
 			cd $(RESOURCE_DIR) && terraform init -upgrade -backend-config=$(BACKEND_FILE); \
