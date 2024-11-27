@@ -1,5 +1,5 @@
 variable "region" {
-  default = "us-east-1"  # Set your AWS region
+  type = string  # Set your AWS region
 }
 
 variable "fivetran_s3_bucket" {
