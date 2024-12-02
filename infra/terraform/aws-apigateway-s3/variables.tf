@@ -8,11 +8,11 @@ variable "fivetran_s3_bucket" {
   # default = "stg" 
 }
 
-variable "bucket" {
-  type = string
-  # default = "byt-test-flow-api"
-  # default = "stg" 
-}
+# variable "bucket" {
+#   type = string
+#   # default = "byt-test-flow-api"
+#   # default = "stg" 
+# }
 
 variable "key" {
   type = string
