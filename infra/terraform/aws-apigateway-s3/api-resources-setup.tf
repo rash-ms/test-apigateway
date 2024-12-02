@@ -1,5 +1,5 @@
 locals {
-  stage_name     = "subscriptionsv05"
+  stage_name     = "subscriptionsv01"
   log_group_name = "/aws/apigateway/spain_sub_apigateway_s3_shopify_flow_${local.stage_name}"
 }
 
