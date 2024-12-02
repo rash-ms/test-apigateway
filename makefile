@@ -6,6 +6,12 @@ TFVARS_DIR = $(TERRAFORM_ROOT_DIR)/data-platform-non-prod/us-east-1/aws-apigatew
 TFVARS_FILE = $(TFVARS_DIR)/terraform.tfvars
 BACKEND_FILE = $(TFVARS_DIR)/backend.tfvars
 
+infra/data-plaform-non-prod/us-east-1/aws-apigateway-s3/backend.tfvars
+/Users/madeniji/Documents/dev-code/test-apigateway/infra/data-plaform-non-prod/us-east-1/aws-apigateway-s3/backend.tfvars
+
+# Initializing Terraform in infra/terraform/aws-apigateway-s3...
+# Using backend file: infra/data-platform-non-prod/us-east-1/aws-apigateway-s3/backend.tfvars
+# Error: Backend file infra/data-platform-non-prod/us-east-1/aws-apigateway-s3/backend.tfvars not found.
 # Initialize Terraform
 init:
 	@echo "Initializing Terraform in $(RESOURCE_DIR)..."
