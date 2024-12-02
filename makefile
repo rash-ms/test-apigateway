@@ -1,4 +1,4 @@
-TERRAFORM_ROOT_DIR = /infra
+TERRAFORM_ROOT_DIR = infra
 # infra
 # /Users/madeniji/Documents/dev-code/test-apigateway/infra
 RESOURCE_DIR = $(TERRAFORM_ROOT_DIR)/terraform/aws-apigateway-s3
