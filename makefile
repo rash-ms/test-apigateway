@@ -10,7 +10,7 @@ python_exec=$(shell command -v python3)
 
 # <Recipes>
 
-TERRAFORM_DIR = infra/terraform
+TERRAFORM_DIR = infra/terraform/aws-apigateway-s3
 
 auth:
 		saml2aws login
