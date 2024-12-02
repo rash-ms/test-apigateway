@@ -59,7 +59,7 @@ tf_lint_without_write:
 # Python dependencies installation
 install_python_deps:
 	${python_exec} -m pip install --upgrade pip
-	pip install -r ./scripts/temp_setup_scripts/requirements.txt
+	pip install -r ./scripts/requirements.txt
 
 
 # TERRAFORM_ROOT_DIR = infra
