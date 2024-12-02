@@ -1,3 +1,3 @@
 bucket = "byt-infra-resources-backend"
-key    = "terraform.tfstate"
+key    = "data-platform-infra/aws-apigateway-s3.tfstate"
 region = "us-east-1"  
