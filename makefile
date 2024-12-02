@@ -10,7 +10,7 @@ python_exec=$(shell command -v python3)
 
 # <Recipes>
 
-TERRAFORM_DIR = infra
+TERRAFORM_DIR = infra/terraform
 
 auth:
 		saml2aws login
@@ -19,14 +19,13 @@ set_env:
 		@echo execute eval $(saml2aws script)
 
 init_backend:
-		cd ${TERRAFORM_DIR}/terraform/aws-apigateway-s3/backend.tf && terraform init -upgrade
+		cd ${TERRAFORM_DIR} && terraform init -upgrade
 
 plan_backend:
-		cd $(TERRAFORM_DIR)/terraform/aws-apigateway-s3/backend.tf && terraform plan
+		cd $(TERRAFORM_DIR) && terraform plan
 
 apply_backend:
-		cd ${TERRAFORM_DIR}/terraform/aws-apigateway-s3/backend.tf && terraform apply
-
+		cd ${TERRAFORM_DIR} && terraform apply
 
 init:
 		cd ${TERRAFORM_DIR} && terraform init -upgrade
