@@ -24,9 +24,14 @@ check-tfvars-file:
 	fi
 
 # Terraform initialization
+# init: check-dir check-backend-file
+# 	@echo "Initializing Terraform in $(RESOURCE_DIR)..."
+# 	cd $(RESOURCE_DIR) && terraform init -backend-config=$(BACKEND_FILE)
+
 init: check-dir check-backend-file
 	@echo "Initializing Terraform in $(RESOURCE_DIR)..."
-	cd $(RESOURCE_DIR) && terraform init -backend-config=$(BACKEND_FILE)
+	cd $(RESOURCE_DIR) && terraform init -backend-config=$(shell realpath $(BACKEND_FILE))
+
 
 # Terraform planning
 plan: check-dir check-tfvars-file
