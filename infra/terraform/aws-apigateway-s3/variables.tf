@@ -14,11 +14,11 @@ variable "fivetran_s3_bucket" {
 #   # default = "stg" 
 # }
 
-variable "key" {
-  type = string
-  # default = "byt-test-flow-api"
-  # default = "stg" 
-}
+# variable "key" {
+#   type = string
+#   # default = "byt-test-flow-api"
+#   # default = "stg" 
+# }
 
 variable "notification_emails" {
   description = "List of email addresses to receive alerts"
