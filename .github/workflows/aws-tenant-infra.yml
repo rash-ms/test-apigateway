@@ -7,7 +7,7 @@ on:
     - '.github/workflows/aws-tenant-infra.yml'
     - 'infra/**'
     - 'infra/aws-identity-setup-tf/**'
-    - 'infra/data-plaform-non-prod/us-east-1/**'
+    - 'infra/data-platform-non-prod/us-east-1/**'
 
 env:
   AWS_REGION: us-east-1
