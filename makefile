@@ -1,4 +1,4 @@
-TERRAFORM_ROOT_DIR = ./../infra
+TERRAFORM_ROOT_DIR = /../../infra
 RESOURCE_DIR = $(TERRAFORM_ROOT_DIR)/terraform/aws-apigateway-s3
 TFVARS_DIR = $(TERRAFORM_ROOT_DIR)/data-platform-non-prod/us-east-1/aws-apigateway-s3
 TFVARS_FILE = $(TFVARS_DIR)/terraform.tfvars
