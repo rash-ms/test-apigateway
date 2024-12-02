@@ -19,13 +19,13 @@ set_env:
 		@echo execute eval $(saml2aws script)
 
 init_backend:
-		cd ${TERRAFORM_DIR}/terraform/aws-apigateway-s3 && terraform init -upgrade
+		cd ${TERRAFORM_DIR}/terraform/aws-apigateway-s3/backend.tf && terraform init -upgrade
 
 plan_backend:
-		cd $(TERRAFORM_DIR)/terraform/aws-apigateway-s3 && terraform plan
+		cd $(TERRAFORM_DIR)/terraform/aws-apigateway-s3/backend.tf && terraform plan
 
 apply_backend:
-		cd ${TERRAFORM_DIR}/terraform/aws-apigateway-s3 && terraform apply
+		cd ${TERRAFORM_DIR}/terraform/aws-apigateway-s3/backend.tf && terraform apply
 
 
 init:
